@@ -75,5 +75,5 @@ public sealed class AspectRatio
 
     public int HeightFromWidth(int width) => IsFree ? 0 : (int)Math.Round(width / Value);
 
-    public override string ToString() => IsFree ? "Free" : Name;
+    public override string ToString() => IsFree ? Properties.Resources.AspectRatio_Free : Name;
 }

@@ -26,8 +26,11 @@ public partial class MainWindow
     private IntPtr _windowHandle;
     private RecordingWindow? _recordingWindow;
 
+    private const int FitWindowHotkeyId = 1;
+
     private POINT _debugOffset;
     private bool _isUpdatingExtend;
+    private bool _areHotkeysSuspended;
 
     public MainWindow()
     {
@@ -77,6 +80,43 @@ public partial class MainWindow
     public static readonly DependencyProperty AspectRatioProperty = DependencyProperty.Register(nameof(AspectRatio), typeof(AspectRatio), typeof(MainWindow),
         new FrameworkPropertyMetadata(AspectRatio.Free, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
             (d, args) => ((MainWindow)d).OnAspectRatioChanged((AspectRatio?)args.NewValue ?? AspectRatio.Free)));
+
+    public bool IsFitWindowHotkeyInUse
+    {
+        get => (bool)GetValue(IsFitWindowHotkeyInUseProperty);
+        set => SetValue(IsFitWindowHotkeyInUseProperty, value);
+    }
+    public static readonly DependencyProperty IsFitWindowHotkeyInUseProperty = DependencyProperty.Register(
+        nameof(IsFitWindowHotkeyInUse), typeof(bool), typeof(MainWindow), new PropertyMetadata(default(bool)));
+
+    internal bool AreHotkeysSuspended
+    {
+        get => _areHotkeysSuspended;
+        set
+        {
+            if (_areHotkeysSuspended == value)
+                return;
+
+            _areHotkeysSuspended = value;
+            RegisterHotkeys();
+        }
+    }
+
+    private void RegisterHotkeys()
+    {
+        if (_windowHandle == IntPtr.Zero)
+            return;
+
+        UnregisterHotKey(_windowHandle, FitWindowHotkeyId);
+
+        if (_areHotkeysSuspended)
+            return;
+
+        var hotkey = Hotkey.Parse(Settings.FitWindowHotkey);
+
+        IsFitWindowHotkeyInUse = !hotkey.IsNone
+                                 && !RegisterHotKey(_windowHandle, FitWindowHotkeyId, hotkey.NativeModifiers | MOD_NOREPEAT, hotkey.NativeKey);
+    }
 
     private void OnExtendChanged(string? newValue)
     {
@@ -185,6 +225,8 @@ public partial class MainWindow
         _windowHandle = this.GetWindowHandle();
 
         HwndSource.FromHwnd(_windowHandle)?.AddHook(WindowProc);
+
+        RegisterHotkeys();
 
         var separationLayerWindow = new Window()
         {
@@ -327,8 +369,8 @@ public partial class MainWindow
             if (inner == null)
                 throw;
 
-            var message = $"The settings file '{inner.Filename}' is corrupt. It will be reset to default values.";
-            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
+            var message = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Error_CorruptSettings, inner.Filename);
+            MessageBox.Show(message, Properties.Resources.Error_Title, MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, MessageBoxOptions.ServiceNotification);
             File.Delete(inner.Filename);
         }
 
@@ -337,10 +379,31 @@ public partial class MainWindow
 
     private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(Settings.ThemeColor))
+        switch (e.PropertyName)
         {
-            SetThemeColor();
+            case nameof(Settings.ThemeColor):
+                SetThemeColor();
+                break;
+
+            case nameof(Settings.FitWindowHotkey):
+                RegisterHotkeys();
+                break;
         }
+    }
+
+    private void SettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        OpenSettings();
+    }
+
+    internal void OpenSettings()
+    {
+        SettingsWindow.Open(this);
+    }
+
+    private void FitForegroundWindow()
+    {
+        WindowFitter.FitForegroundWindow(NativeWindowRect - GlassFrameThickness);
     }
 
     private void SetThemeColor()
@@ -377,6 +440,8 @@ public partial class MainWindow
     protected override void OnClosing(CancelEventArgs e)
     {
         base.OnClosing(e);
+
+        UnregisterHotKey(_windowHandle, FitWindowHotkeyId);
 
         var normalPosition = _windowHandle.GetWindowPlacement().NormalPosition - GlassFrameThickness;
         Settings.WindowPlacement = normalPosition.Serialize();
@@ -416,6 +481,11 @@ public partial class MainWindow
                     handled = true;
                     return (IntPtr)1;
                 }
+                break;
+
+            case WM_HOTKEY when wParam.ToInt32() == FitWindowHotkeyId:
+                handled = true;
+                FitForegroundWindow();
                 break;
         }
 

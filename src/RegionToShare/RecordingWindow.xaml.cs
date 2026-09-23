@@ -283,6 +283,12 @@ public partial class RecordingWindow
             menu.Items.Add(item);
         }
 
+        var settingsItem = new MenuItem { Header = Properties.Resources.Menu_Settings };
+        settingsItem.Click += (_, _) => _mainWindow.OpenSettings();
+
+        menu.Items.Add(new Separator());
+        menu.Items.Add(settingsItem);
+
         menu.IsOpen = true;
     }
 }

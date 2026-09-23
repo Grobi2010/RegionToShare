@@ -94,5 +94,29 @@ namespace RegionToShare.Properties {
                 this["AspectRatio"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Language {
+            get {
+                return ((string)(this["Language"]));
+            }
+            set {
+                this["Language"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ctrl+Win+W")]
+        public string FitWindowHotkey {
+            get {
+                return ((string)(this["FitWindowHotkey"]));
+            }
+            set {
+                this["FitWindowHotkey"] = value;
+            }
+        }
     }
 }

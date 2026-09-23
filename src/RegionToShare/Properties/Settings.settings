@@ -20,5 +20,11 @@
     <Setting Name="AspectRatio" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FitWindowHotkey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ctrl+Win+W</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
