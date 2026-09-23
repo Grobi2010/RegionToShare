@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using RegionToShare.Properties;
@@ -26,6 +27,7 @@ public partial class MainWindow
     private RecordingWindow? _recordingWindow;
 
     private POINT _debugOffset;
+    private bool _isUpdatingExtend;
 
     public MainWindow()
     {
@@ -33,6 +35,8 @@ public partial class MainWindow
 
         DataContext = this;
         Resolutions = LoadResolutions();
+        AspectRatios = LoadAspectRatios();
+        AspectRatio = AspectRatios.FirstOrDefault(item => item.Name == Settings.AspectRatio) ?? AspectRatio.Free;
         Resources.RegisterDefaultStyles();
         SetThemeColor();
         Settings.PropertyChanged += Settings_PropertyChanged;
@@ -41,6 +45,8 @@ public partial class MainWindow
     public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
     public ICollection<string> Resolutions { get; }
+
+    public ICollection<AspectRatio> AspectRatios { get; }
 
     public static ICollection<int> SupportedFramesPerSecond { get; } = new[] { 5, 10, 15, 20, 30, 60 };
 
@@ -63,13 +69,50 @@ public partial class MainWindow
     public static readonly DependencyProperty BackgroundPatternProperty = DependencyProperty.Register(
         nameof(BackgroundPattern), typeof(Brush), typeof(MainWindow), new PropertyMetadata(default(Brush)));
 
+    public AspectRatio AspectRatio
+    {
+        get => (AspectRatio)GetValue(AspectRatioProperty);
+        set => SetValue(AspectRatioProperty, value);
+    }
+    public static readonly DependencyProperty AspectRatioProperty = DependencyProperty.Register(nameof(AspectRatio), typeof(AspectRatio), typeof(MainWindow),
+        new FrameworkPropertyMetadata(AspectRatio.Free, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+            (d, args) => ((MainWindow)d).OnAspectRatioChanged((AspectRatio?)args.NewValue ?? AspectRatio.Free)));
+
     private void OnExtendChanged(string? newValue)
     {
-        if (newValue is null || !TryParseSize(newValue, out var size))
+        if (_isUpdatingExtend || newValue is null || !TryParseSize(newValue, out var size))
+            return;
+
+        if (!AspectRatio.IsFree)
+        {
+            size.Height = AspectRatio.HeightFromWidth(size.Width);
+        }
+
+        SetRegionSize(size);
+    }
+
+    private void OnAspectRatioChanged(AspectRatio aspectRatio)
+    {
+        Settings.AspectRatio = aspectRatio.Name;
+
+        if (aspectRatio.IsFree || _windowHandle == IntPtr.Zero)
+            return;
+
+        var region = NativeWindowRect - GlassFrameThickness;
+
+        SetRegionSize(new SIZE(region.Width, aspectRatio.HeightFromWidth(region.Width)));
+    }
+
+    private void SetRegionSize(SIZE size)
+    {
+        if (_windowHandle == IntPtr.Zero)
             return;
 
         size += GlassFrameThickness;
         SetWindowPos(_windowHandle, IntPtr.Zero, 0, 0, size.Width, size.Height, SWP_NOACTIVATE | SWP_NOZORDER | SWP_NOMOVE);
+
+        // Refresh the displayed extend, even if the window size did not change.
+        UpdateSizeAndPos();
     }
 
     internal Thickness GlassFrameThickness => DwmGetExtendedFrameBounds(_windowHandle);
@@ -94,28 +137,44 @@ public partial class MainWindow
     {
         var defaultResolutions = new[] { @"1024x782", @"1280x1024", @"1920x1080" };
 
+        return LoadUserList(@"resolutions.txt", defaultResolutions, item => TryParseSize(item, out _));
+    }
+
+    private static ICollection<AspectRatio> LoadAspectRatios()
+    {
+        var defaultAspectRatios = new[] { @"4:3", @"5:4", @"16:10", @"16:9" };
+
+        var aspectRatios = LoadUserList(@"aspectratios.txt", defaultAspectRatios, item => AspectRatio.TryParse(item, out _))
+            .Select(item => AspectRatio.TryParse(item, out var aspectRatio) ? aspectRatio : AspectRatio.Free)
+            .Where(item => !item.IsFree);
+
+        return new[] { AspectRatio.Free }.Concat(aspectRatios).ToArray();
+    }
+
+    private static ICollection<string> LoadUserList(string fileName, ICollection<string> defaultItems, Func<string, bool> isValid)
+    {
         try
         {
             var userDataDirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"RegionToShare");
-            var resolutionsFilePath = Path.Combine(userDataDirPath, @"resolutions.txt");
+            var filePath = Path.Combine(userDataDirPath, fileName);
 
             Directory.CreateDirectory(userDataDirPath);
 
-            if (!File.Exists(resolutionsFilePath))
+            if (!File.Exists(filePath))
             {
-                File.WriteAllLines(resolutionsFilePath, defaultResolutions);
-                return defaultResolutions;
+                File.WriteAllLines(filePath, defaultItems);
+                return defaultItems;
             }
 
-            var resolutions = File.ReadAllLines(resolutionsFilePath)
-                .Where(item => TryParseSize(item, out _))
+            var items = File.ReadAllLines(filePath)
+                .Where(isValid)
                 .ToArray();
 
-            return resolutions.Any() ? resolutions : defaultResolutions;
+            return items.Any() ? items : defaultItems;
         }
         catch
         {
-            return defaultResolutions;
+            return defaultItems;
         }
     }
 
@@ -124,6 +183,8 @@ public partial class MainWindow
         base.OnSourceInitialized(e);
 
         _windowHandle = this.GetWindowHandle();
+
+        HwndSource.FromHwnd(_windowHandle)?.AddHook(WindowProc);
 
         var separationLayerWindow = new Window()
         {
@@ -331,9 +392,34 @@ public partial class MainWindow
         _recordingWindow?.UpdateSizeAndPos(NativeWindowRect);
 
         var rect = NativeWindowRect - GlassFrameThickness;
-        Extend = rect.Width + "x" + rect.Height;
+
+        _isUpdatingExtend = true;
+        try
+        {
+            Extend = rect.Width + "x" + rect.Height;
+        }
+        finally
+        {
+            _isUpdatingExtend = false;
+        }
 
         SetSeparationLayerPos(SWP_NOACTIVATE | SWP_NOZORDER);
+    }
+
+    private IntPtr WindowProc(IntPtr windowHandle, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        switch (msg)
+        {
+            case WM_SIZING:
+                if (AspectRatio.HandleSizing(wParam, lParam, GlassFrameThickness))
+                {
+                    handled = true;
+                    return (IntPtr)1;
+                }
+                break;
+        }
+
+        return IntPtr.Zero;
     }
 
     private void SubLayer_MouseDown(object sender, MouseButtonEventArgs e)

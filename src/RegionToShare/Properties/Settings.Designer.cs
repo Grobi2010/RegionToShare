@@ -82,5 +82,17 @@ namespace RegionToShare.Properties {
                 this["StartActivated"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AspectRatio {
+            get {
+                return ((string)(this["AspectRatio"]));
+            }
+            set {
+                this["AspectRatio"] = value;
+            }
+        }
     }
 }

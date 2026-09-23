@@ -47,6 +47,11 @@
                   ItemsSource="{Binding Resolutions}"
                   Width="90" IsEditable="True" />
         <Decorator Style="{StaticResource Padding}"/>
+        <ComboBox SelectedItem="{Binding AspectRatio}"
+                  ItemsSource="{Binding AspectRatios}"
+                  ToolTip="Aspect ratio"
+                  Width="65" />
+        <Decorator Style="{StaticResource Padding}"/>
         <TextBox Text="{Binding ThemeColor, Source={x:Static properties:Settings.Default}, UpdateSourceTrigger=PropertyChanged}"
                  Width="90" />
         <Decorator Style="{StaticResource Padding}"/>
