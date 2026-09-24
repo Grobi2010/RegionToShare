@@ -200,6 +200,123 @@ namespace RegionToShare.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mouse highlighter.
+        /// </summary>
+        public static string Settings_Highlighter {
+            get {
+                return ResourceManager.GetString("Settings_Highlighter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click color duration.
+        /// </summary>
+        public static string Settings_HighlighterClickDuration {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterClickDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ring color.
+        /// </summary>
+        public static string Settings_HighlighterColor {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diameter.
+        /// </summary>
+        public static string Settings_HighlighterDiameter {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterDiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight the mouse cursor while sharing.
+        /// </summary>
+        public static string Settings_HighlighterEnabled {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show in the shared region.
+        /// </summary>
+        public static string Settings_HighlighterInShare {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterInShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left click.
+        /// </summary>
+        public static string Settings_HighlighterLeftClick {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterLeftClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show on my screen.
+        /// </summary>
+        public static string Settings_HighlighterOnScreen {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterOnScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opacity.
+        /// </summary>
+        public static string Settings_HighlighterOpacity {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterOpacity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right click.
+        /// </summary>
+        public static string Settings_HighlighterRightClick {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterRightClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sounds are only played locally. Others hear them only if ....
+        /// </summary>
+        public static string Settings_HighlighterSoundHint {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterSoundHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line width.
+        /// </summary>
+        public static string Settings_HighlighterThickness {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        public static string Settings_HighlighterVolume {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click and press a key combination. Delete or Backspace re....
         /// </summary>
         public static string Settings_HotkeyHint {
@@ -277,6 +394,69 @@ namespace RegionToShare.Properties {
         public static string Settings_Title {
             get {
                 return ResourceManager.GetString("Settings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wave file....
+        /// </summary>
+        public static string Sound_File {
+            get {
+                return ResourceManager.GetString("Sound_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wave files (*.wav)|*.wav.
+        /// </summary>
+        public static string Sound_FileFilter {
+            get {
+                return ResourceManager.GetString("Sound_FileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click high.
+        /// </summary>
+        public static string Sound_High {
+            get {
+                return ResourceManager.GetString("Sound_High", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click low.
+        /// </summary>
+        public static string Sound_Low {
+            get {
+                return ResourceManager.GetString("Sound_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No sound.
+        /// </summary>
+        public static string Sound_None {
+            get {
+                return ResourceManager.GetString("Sound_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play.
+        /// </summary>
+        public static string Sound_Play {
+            get {
+                return ResourceManager.GetString("Sound_Play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pop.
+        /// </summary>
+        public static string Sound_Pop {
+            get {
+                return ResourceManager.GetString("Sound_Pop", resourceCulture);
             }
         }
         

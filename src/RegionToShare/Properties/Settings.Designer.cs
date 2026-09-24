@@ -118,5 +118,161 @@ namespace RegionToShare.Properties {
                 this["FitWindowHotkey"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool HighlighterEnabled {
+            get {
+                return ((bool)(this["HighlighterEnabled"]));
+            }
+            set {
+                this["HighlighterEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HighlighterOnScreen {
+            get {
+                return ((bool)(this["HighlighterOnScreen"]));
+            }
+            set {
+                this["HighlighterOnScreen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HighlighterInShare {
+            get {
+                return ((bool)(this["HighlighterInShare"]));
+            }
+            set {
+                this["HighlighterInShare"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        public string HighlighterColor {
+            get {
+                return ((string)(this["HighlighterColor"]));
+            }
+            set {
+                this["HighlighterColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int HighlighterOpacity {
+            get {
+                return ((int)(this["HighlighterOpacity"]));
+            }
+            set {
+                this["HighlighterOpacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public int HighlighterDiameter {
+            get {
+                return ((int)(this["HighlighterDiameter"]));
+            }
+            set {
+                this["HighlighterDiameter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int HighlighterThickness {
+            get {
+                return ((int)(this["HighlighterThickness"]));
+            }
+            set {
+                this["HighlighterThickness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public string HighlighterLeftClickColor {
+            get {
+                return ((string)(this["HighlighterLeftClickColor"]));
+            }
+            set {
+                this["HighlighterLeftClickColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
+        public string HighlighterRightClickColor {
+            get {
+                return ((string)(this["HighlighterRightClickColor"]));
+            }
+            set {
+                this["HighlighterRightClickColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int HighlighterClickDuration {
+            get {
+                return ((int)(this["HighlighterClickDuration"]));
+            }
+            set {
+                this["HighlighterClickDuration"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("High")]
+        public string HighlighterLeftClickSound {
+            get {
+                return ((string)(this["HighlighterLeftClickSound"]));
+            }
+            set {
+                this["HighlighterLeftClickSound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Low")]
+        public string HighlighterRightClickSound {
+            get {
+                return ((string)(this["HighlighterRightClickSound"]));
+            }
+            set {
+                this["HighlighterRightClickSound"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int HighlighterVolume {
+            get {
+                return ((int)(this["HighlighterVolume"]));
+            }
+            set {
+                this["HighlighterVolume"] = value;
+            }
+        }
     }
 }

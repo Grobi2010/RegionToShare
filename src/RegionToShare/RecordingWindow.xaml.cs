@@ -235,6 +235,12 @@ public partial class RecordingWindow
 
             graphics.CopyFromScreen(nativeRect.Left, nativeRect.Top, 0, 0, new Size(nativeRect.Width, nativeRect.Height));
 
+            var highlighter = _mainWindow.MouseHighlighter;
+            if (highlighter.IsVisibleInShare && GetCursorPos(out var cursorPosition))
+            {
+                highlighter.DrawRing(graphics, cursorPosition.X - nativeRect.Left, cursorPosition.Y - nativeRect.Top);
+            }
+
             if (_drawShadowCursor)
             {
                 graphics.DrawCursor(nativeRect);

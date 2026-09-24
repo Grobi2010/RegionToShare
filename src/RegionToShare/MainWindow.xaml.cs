@@ -55,6 +55,8 @@ public partial class MainWindow
 
     internal Settings Settings => Settings.Default;
 
+    internal MouseHighlighter MouseHighlighter { get; } = new();
+
     public string? Extend
     {
         get => (string?)GetValue(ExtendProperty);
@@ -333,6 +335,7 @@ public partial class MainWindow
             ResizeMode = ResizeMode.CanResize;
 
             _recordingWindow = null;
+            MouseHighlighter.IsSharing = false;
 
             NativeWindowRect += GlassFrameThickness;
 
@@ -340,6 +343,7 @@ public partial class MainWindow
         };
 
         _recordingWindow.Show();
+        MouseHighlighter.IsSharing = true;
 
         this.BeginInvoke(DispatcherPriority.Background, SendToBack);
     }
@@ -442,6 +446,7 @@ public partial class MainWindow
         base.OnClosing(e);
 
         UnregisterHotKey(_windowHandle, FitWindowHotkeyId);
+        MouseHighlighter.Dispose();
 
         var normalPosition = _windowHandle.GetWindowPlacement().NormalPosition - GlassFrameThickness;
         Settings.WindowPlacement = normalPosition.Serialize();

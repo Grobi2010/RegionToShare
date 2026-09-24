@@ -142,4 +142,64 @@
   <data name="Error_CorruptSettings" xml:space="preserve">
     <value>Die Einstellungsdatei &apos;{0}&apos; ist beschädigt. Sie wird auf die Standardwerte zurückgesetzt.</value>
   </data>
+  <data name="Settings_Highlighter" xml:space="preserve">
+    <value>Maus-Highlighter</value>
+  </data>
+  <data name="Settings_HighlighterEnabled" xml:space="preserve">
+    <value>Mauszeiger beim Teilen hervorheben</value>
+  </data>
+  <data name="Settings_HighlighterOnScreen" xml:space="preserve">
+    <value>Auf meinem Bildschirm anzeigen</value>
+  </data>
+  <data name="Settings_HighlighterInShare" xml:space="preserve">
+    <value>In der geteilten Region anzeigen</value>
+  </data>
+  <data name="Settings_HighlighterColor" xml:space="preserve">
+    <value>Ringfarbe</value>
+  </data>
+  <data name="Settings_HighlighterOpacity" xml:space="preserve">
+    <value>Deckkraft</value>
+  </data>
+  <data name="Settings_HighlighterDiameter" xml:space="preserve">
+    <value>Durchmesser</value>
+  </data>
+  <data name="Settings_HighlighterThickness" xml:space="preserve">
+    <value>Strichstärke</value>
+  </data>
+  <data name="Settings_HighlighterLeftClick" xml:space="preserve">
+    <value>Linksklick</value>
+  </data>
+  <data name="Settings_HighlighterRightClick" xml:space="preserve">
+    <value>Rechtsklick</value>
+  </data>
+  <data name="Settings_HighlighterClickDuration" xml:space="preserve">
+    <value>Dauer der Klickfarbe</value>
+  </data>
+  <data name="Settings_HighlighterVolume" xml:space="preserve">
+    <value>Lautstärke</value>
+  </data>
+  <data name="Settings_HighlighterSoundHint" xml:space="preserve">
+    <value>Töne werden nur lokal abgespielt. Andere hören sie nur, wenn deine Meeting-App den Computersound mitteilt.</value>
+  </data>
+  <data name="Sound_None" xml:space="preserve">
+    <value>Kein Ton</value>
+  </data>
+  <data name="Sound_High" xml:space="preserve">
+    <value>Klick hell</value>
+  </data>
+  <data name="Sound_Low" xml:space="preserve">
+    <value>Klick dunkel</value>
+  </data>
+  <data name="Sound_Pop" xml:space="preserve">
+    <value>Pop</value>
+  </data>
+  <data name="Sound_File" xml:space="preserve">
+    <value>Wave-Datei...</value>
+  </data>
+  <data name="Sound_Play" xml:space="preserve">
+    <value>Abspielen</value>
+  </data>
+  <data name="Sound_FileFilter" xml:space="preserve">
+    <value>Wave-Dateien (*.wav)|*.wav</value>
+  </data>
 </root>

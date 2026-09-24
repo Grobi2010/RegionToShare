@@ -142,4 +142,64 @@
   <data name="Error_CorruptSettings" xml:space="preserve">
     <value>The settings file &apos;{0}&apos; is corrupt. It will be reset to default values.</value>
   </data>
+  <data name="Settings_Highlighter" xml:space="preserve">
+    <value>Mouse highlighter</value>
+  </data>
+  <data name="Settings_HighlighterEnabled" xml:space="preserve">
+    <value>Highlight the mouse cursor while sharing</value>
+  </data>
+  <data name="Settings_HighlighterOnScreen" xml:space="preserve">
+    <value>Show on my screen</value>
+  </data>
+  <data name="Settings_HighlighterInShare" xml:space="preserve">
+    <value>Show in the shared region</value>
+  </data>
+  <data name="Settings_HighlighterColor" xml:space="preserve">
+    <value>Ring color</value>
+  </data>
+  <data name="Settings_HighlighterOpacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="Settings_HighlighterDiameter" xml:space="preserve">
+    <value>Diameter</value>
+  </data>
+  <data name="Settings_HighlighterThickness" xml:space="preserve">
+    <value>Line width</value>
+  </data>
+  <data name="Settings_HighlighterLeftClick" xml:space="preserve">
+    <value>Left click</value>
+  </data>
+  <data name="Settings_HighlighterRightClick" xml:space="preserve">
+    <value>Right click</value>
+  </data>
+  <data name="Settings_HighlighterClickDuration" xml:space="preserve">
+    <value>Click color duration</value>
+  </data>
+  <data name="Settings_HighlighterVolume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="Settings_HighlighterSoundHint" xml:space="preserve">
+    <value>Sounds are only played locally. Others hear them only if your meeting app shares the computer sound.</value>
+  </data>
+  <data name="Sound_None" xml:space="preserve">
+    <value>No sound</value>
+  </data>
+  <data name="Sound_High" xml:space="preserve">
+    <value>Click high</value>
+  </data>
+  <data name="Sound_Low" xml:space="preserve">
+    <value>Click low</value>
+  </data>
+  <data name="Sound_Pop" xml:space="preserve">
+    <value>Pop</value>
+  </data>
+  <data name="Sound_File" xml:space="preserve">
+    <value>Wave file...</value>
+  </data>
+  <data name="Sound_Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="Sound_FileFilter" xml:space="preserve">
+    <value>Wave files (*.wav)|*.wav</value>
+  </data>
 </root>
