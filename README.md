@@ -55,9 +55,10 @@ The hotkey can be changed in the settings.
 
 ### Mouse highlighter
 
-While sharing, a ring around the mouse cursor shows others where you are pointing. Left and right clicks briefly change
-the color of the ring and play a sound. The highlighter is off by default; turn it on and adjust color, opacity, size,
-click colors, sounds and volume in the settings. The ring can be shown on your own screen, in the shared region, or both.
+A double ring around the mouse cursor shows where you are pointing; the inner ring is more transparent than the outer one.
+Left and right clicks briefly change the color of the ring and play a sound. The highlighter is off by default; once turned on
+in the settings, it is active all the time, not only while sharing. Color, opacity, size, click colors, sounds and volume can be
+adjusted in the settings. The ring can be shown on your own screen, in the shared region, or both.
 
 ### Settings
 

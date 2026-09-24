@@ -236,7 +236,7 @@ namespace RegionToShare.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Highlight the mouse cursor while sharing.
+        ///   Looks up a localized string similar to Highlight the mouse cursor.
         /// </summary>
         public static string Settings_HighlighterEnabled {
             get {

@@ -335,7 +335,6 @@ public partial class MainWindow
             ResizeMode = ResizeMode.CanResize;
 
             _recordingWindow = null;
-            MouseHighlighter.IsSharing = false;
 
             NativeWindowRect += GlassFrameThickness;
 
@@ -343,7 +342,6 @@ public partial class MainWindow
         };
 
         _recordingWindow.Show();
-        MouseHighlighter.IsSharing = true;
 
         this.BeginInvoke(DispatcherPriority.Background, SendToBack);
     }

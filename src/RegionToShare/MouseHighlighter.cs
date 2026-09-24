@@ -21,51 +21,54 @@ internal sealed class MouseHighlighter : IDisposable
 
     private MouseHook? _hook;
     private HighlightOverlay? _overlay;
-    private bool _isSharing;
+    private bool _isDisposed;
 
     public MouseHighlighter()
     {
         _clickTimer.Tick += ClickTimer_Tick;
         _settings.PropertyChanged += Settings_PropertyChanged;
+        Update();
     }
 
-    public bool IsSharing
-    {
-        get => _isSharing;
-        set
-        {
-            _isSharing = value;
-            Update();
-        }
-    }
-
+    /// <summary>
+    /// Whether to draw the ring into the shared image; only relevant while sharing.
+    /// </summary>
     public bool IsVisibleInShare => IsActive && _settings.HighlighterInShare;
 
-    private bool IsActive => _isSharing && _settings.HighlighterEnabled;
+    private bool IsActive => !_isDisposed && _settings.HighlighterEnabled;
 
     private int Diameter => Clamp(_settings.HighlighterDiameter, 4, 500);
 
-    private int Thickness => Clamp(_settings.HighlighterThickness, 1, Diameter / 2);
+    // Two rings side by side must fit into the diameter.
+    private int Thickness => Clamp(_settings.HighlighterThickness, 1, Diameter / 4);
 
     /// <summary>
-    /// Draws the ring centered at the given point.
+    /// Draws the highlight centered at the given point: an outer ring and a more transparent inner ring right inside of it.
     /// </summary>
     public void DrawRing(Graphics graphics, float centerX, float centerY)
     {
         var thickness = Thickness;
-        var diameter = Diameter - thickness;
-
-        using var pen = new Pen(CurrentColor, thickness);
+        var outerColor = CurrentColor;
+        var innerColor = System.Drawing.Color.FromArgb(outerColor.A * 45 / 100, outerColor);
 
         graphics.SmoothingMode = SmoothingMode.AntiAlias;
-        graphics.DrawEllipse(pen, centerX - diameter / 2f, centerY - diameter / 2f, diameter, diameter);
+
+        DrawCircle(graphics, centerX, centerY, Diameter - thickness, thickness, outerColor);
+        DrawCircle(graphics, centerX, centerY, Diameter - 3 * thickness, thickness, innerColor);
     }
 
     public void Dispose()
     {
         _settings.PropertyChanged -= Settings_PropertyChanged;
-        _isSharing = false;
+        _isDisposed = true;
         Update();
+    }
+
+    private static void DrawCircle(Graphics graphics, float centerX, float centerY, float diameter, int thickness, System.Drawing.Color color)
+    {
+        using var pen = new Pen(color, thickness);
+
+        graphics.DrawEllipse(pen, centerX - diameter / 2f, centerY - diameter / 2f, diameter, diameter);
     }
 
     private System.Drawing.Color CurrentColor

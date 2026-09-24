@@ -146,7 +146,7 @@
     <value>Mouse highlighter</value>
   </data>
   <data name="Settings_HighlighterEnabled" xml:space="preserve">
-    <value>Highlight the mouse cursor while sharing</value>
+    <value>Highlight the mouse cursor</value>
   </data>
   <data name="Settings_HighlighterOnScreen" xml:space="preserve">
     <value>Show on my screen</value>

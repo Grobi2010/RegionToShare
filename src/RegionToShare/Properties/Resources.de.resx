@@ -146,7 +146,7 @@
     <value>Maus-Highlighter</value>
   </data>
   <data name="Settings_HighlighterEnabled" xml:space="preserve">
-    <value>Mauszeiger beim Teilen hervorheben</value>
+    <value>Mauszeiger hervorheben</value>
   </data>
   <data name="Settings_HighlighterOnScreen" xml:space="preserve">
     <value>Auf meinem Bildschirm anzeigen</value>
