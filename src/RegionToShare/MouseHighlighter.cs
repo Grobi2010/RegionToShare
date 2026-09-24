@@ -47,14 +47,16 @@ internal sealed class MouseHighlighter : IDisposable
     /// </summary>
     public void DrawRing(Graphics graphics, float centerX, float centerY)
     {
-        var thickness = Thickness;
+        // The outer ring is a bit finer than the inner one.
+        var innerThickness = (float)Thickness;
+        var outerThickness = Math.Max(1f, innerThickness * 0.6f);
         var outerColor = CurrentColor;
         var innerColor = System.Drawing.Color.FromArgb(outerColor.A * 45 / 100, outerColor);
 
         graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-        DrawCircle(graphics, centerX, centerY, Diameter - thickness, thickness, outerColor);
-        DrawCircle(graphics, centerX, centerY, Diameter - 3 * thickness, thickness, innerColor);
+        DrawCircle(graphics, centerX, centerY, Diameter - outerThickness, outerThickness, outerColor);
+        DrawCircle(graphics, centerX, centerY, Diameter - 2 * outerThickness - innerThickness, innerThickness, innerColor);
     }
 
     public void Dispose()
@@ -64,7 +66,7 @@ internal sealed class MouseHighlighter : IDisposable
         Update();
     }
 
-    private static void DrawCircle(Graphics graphics, float centerX, float centerY, float diameter, int thickness, System.Drawing.Color color)
+    private static void DrawCircle(Graphics graphics, float centerX, float centerY, float diameter, float thickness, System.Drawing.Color color)
     {
         using var pen = new Pen(color, thickness);
 
