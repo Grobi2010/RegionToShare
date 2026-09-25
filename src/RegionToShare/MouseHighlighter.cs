@@ -39,17 +39,18 @@ internal sealed class MouseHighlighter : IDisposable
 
     private int Diameter => Clamp(_settings.HighlighterDiameter, 4, 500);
 
-    // Two rings side by side must fit into the diameter.
-    private int Thickness => Clamp(_settings.HighlighterThickness, 1, Diameter / 4);
+    // Both rings side by side must fit into the radius.
+    private int OuterThickness => Clamp(_settings.HighlighterOuterThickness, 1, Diameter / 2 - 1);
+
+    private int InnerThickness => Clamp(_settings.HighlighterThickness, 1, Diameter / 2 - OuterThickness);
 
     /// <summary>
     /// Draws the highlight centered at the given point: an outer ring and a more transparent inner ring right inside of it.
     /// </summary>
     public void DrawRing(Graphics graphics, float centerX, float centerY)
     {
-        // The outer ring is a bit finer than the inner one.
-        var innerThickness = (float)Thickness;
-        var outerThickness = Math.Max(1f, innerThickness * 0.6f);
+        var innerThickness = InnerThickness;
+        var outerThickness = OuterThickness;
         var outerColor = CurrentColor;
         var innerColor = System.Drawing.Color.FromArgb(outerColor.A * 45 / 100, outerColor);
 

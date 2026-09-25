@@ -61,7 +61,7 @@ namespace RegionToShare.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SteelBlue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#4682B4")]
         public string ThemeColor {
             get {
                 return ((string)(this["ThemeColor"]));
@@ -157,7 +157,7 @@ namespace RegionToShare.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Yellow")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFFF00")]
         public string HighlighterColor {
             get {
                 return ((string)(this["HighlighterColor"]));
@@ -205,7 +205,19 @@ namespace RegionToShare.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int HighlighterOuterThickness {
+            get {
+                return ((int)(this["HighlighterOuterThickness"]));
+            }
+            set {
+                this["HighlighterOuterThickness"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF0000")]
         public string HighlighterLeftClickColor {
             get {
                 return ((string)(this["HighlighterLeftClickColor"]));
@@ -217,7 +229,7 @@ namespace RegionToShare.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#0000FF")]
         public string HighlighterRightClickColor {
             get {
                 return ((string)(this["HighlighterRightClickColor"]));

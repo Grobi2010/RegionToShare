@@ -146,6 +146,15 @@ namespace RegionToShare.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose color....
+        /// </summary>
+        public static string Settings_ChooseColor {
+            get {
+                return ResourceManager.GetString("Settings_ChooseColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Settings_Close {
@@ -155,7 +164,7 @@ namespace RegionToShare.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Color name or #RRGGBB.
+        ///   Looks up a localized string similar to Hex color, e.g. #4682B4.
         /// </summary>
         public static string Settings_ColorHint {
             get {
@@ -281,6 +290,15 @@ namespace RegionToShare.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Outer line width.
+        /// </summary>
+        public static string Settings_HighlighterOuterThickness {
+            get {
+                return ResourceManager.GetString("Settings_HighlighterOuterThickness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Right click.
         /// </summary>
         public static string Settings_HighlighterRightClick {
@@ -299,7 +317,7 @@ namespace RegionToShare.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Line width.
+        ///   Looks up a localized string similar to Inner line width.
         /// </summary>
         public static string Settings_HighlighterThickness {
             get {

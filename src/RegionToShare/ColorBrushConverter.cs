@@ -22,6 +22,16 @@ public class ColorBrushConverter : IValueConverter
         return DependencyProperty.UnsetValue;
     }
 
+    /// <summary>
+    /// Formats a color as "#RRGGBB", or "#AARRGGBB" if it is not fully opaque.
+    /// </summary>
+    public static string ToHex(Color color)
+    {
+        return color.A == 255
+            ? $"#{color.R:X2}{color.G:X2}{color.B:X2}"
+            : $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+    }
+
     public static bool TryParseColor(string? value, out Color color)
     {
         color = default;

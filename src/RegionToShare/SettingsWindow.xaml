@@ -26,13 +26,6 @@
         <Setter Property="Foreground" Value="#999999" />
         <Setter Property="Margin" Value="0,2,0,3" />
       </Style>
-      <Style TargetType="Border" x:Key="ColorPreview">
-        <Setter Property="Width" Value="20" />
-        <Setter Property="Height" Value="20" />
-        <Setter Property="Margin" Value="5,0,0,0" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="#686868" />
-      </Style>
     </StackPanel.Resources>
 
     <GroupBox Header="{x:Static properties:Resources.Settings_General}">
@@ -51,12 +44,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_ThemeColor}" />
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-          <TextBox Width="120" Text="{Binding ThemeColor, UpdateSourceTrigger=PropertyChanged}"
-                   ToolTip="{x:Static properties:Resources.Settings_ColorHint}" />
-          <Border Style="{StaticResource ColorPreview}"
-                  Background="{Binding ThemeColor, Converter={x:Static local:ColorBrushConverter.Default}}" />
-        </StackPanel>
+        <local:ColorBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Color="{Binding ThemeColor}" />
 
         <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_FramesPerSecond}" />
         <ComboBox Grid.Row="1" Grid.Column="1" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -131,6 +119,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
           <Grid.Resources>
             <Style TargetType="Slider" BasedOn="{StaticResource {x:Type Slider}}">
@@ -152,12 +141,7 @@
                     IsChecked="{Binding HighlighterInShare}" />
 
           <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterColor}" />
-          <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBox Width="120" Text="{Binding HighlighterColor, UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{x:Static properties:Resources.Settings_ColorHint}" />
-            <Border Style="{StaticResource ColorPreview}"
-                    Background="{Binding HighlighterColor, Converter={x:Static local:ColorBrushConverter.Default}}" />
-          </StackPanel>
+          <local:ColorBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Color="{Binding HighlighterColor}" />
 
           <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterOpacity}" />
           <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
@@ -171,45 +155,43 @@
             <TextBlock Style="{StaticResource SliderValue}" Text="{Binding HighlighterDiameter, StringFormat={}{0} px}" />
           </StackPanel>
 
-          <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterThickness}" />
+          <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterOuterThickness}" />
           <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+            <Slider Minimum="1" Maximum="20" TickFrequency="1" Value="{Binding HighlighterOuterThickness}" />
+            <TextBlock Style="{StaticResource SliderValue}" Text="{Binding HighlighterOuterThickness, StringFormat={}{0} px}" />
+          </StackPanel>
+
+          <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterThickness}" />
+          <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
             <Slider Minimum="1" Maximum="20" TickFrequency="1" Value="{Binding HighlighterThickness}" />
             <TextBlock Style="{StaticResource SliderValue}" Text="{Binding HighlighterThickness, StringFormat={}{0} px}" />
           </StackPanel>
 
-          <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterLeftClick}" />
-          <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
-            <TextBox Width="120" VerticalAlignment="Center"
-                     Text="{Binding HighlighterLeftClickColor, UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{x:Static properties:Resources.Settings_ColorHint}" />
-            <Border Style="{StaticResource ColorPreview}" Margin="5,0,10,0"
-                    Background="{Binding HighlighterLeftClickColor, Converter={x:Static local:ColorBrushConverter.Default}}" />
+          <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterLeftClick}" />
+          <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
+            <local:ColorBox VerticalAlignment="Center" Margin="0,0,10,0" Color="{Binding HighlighterLeftClickColor}" />
             <local:SoundSelector Sound="{Binding HighlighterLeftClickSound}" />
           </StackPanel>
 
-          <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterRightClick}" />
-          <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
-            <TextBox Width="120" VerticalAlignment="Center"
-                     Text="{Binding HighlighterRightClickColor, UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{x:Static properties:Resources.Settings_ColorHint}" />
-            <Border Style="{StaticResource ColorPreview}" Margin="5,0,10,0"
-                    Background="{Binding HighlighterRightClickColor, Converter={x:Static local:ColorBrushConverter.Default}}" />
+          <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterRightClick}" />
+          <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,2">
+            <local:ColorBox VerticalAlignment="Center" Margin="0,0,10,0" Color="{Binding HighlighterRightClickColor}" />
             <local:SoundSelector Sound="{Binding HighlighterRightClickSound}" />
           </StackPanel>
 
-          <TextBlock Grid.Row="8" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterClickDuration}" />
-          <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal">
+          <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterClickDuration}" />
+          <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
             <Slider Minimum="50" Maximum="2000" TickFrequency="50" Value="{Binding HighlighterClickDuration}" />
             <TextBlock Style="{StaticResource SliderValue}" Text="{Binding HighlighterClickDuration, StringFormat={}{0} ms}" />
           </StackPanel>
 
-          <TextBlock Grid.Row="9" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterVolume}" />
-          <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Horizontal">
+          <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource Label}" Text="{x:Static properties:Resources.Settings_HighlighterVolume}" />
+          <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Horizontal">
             <Slider Minimum="0" Maximum="100" TickFrequency="5" Value="{Binding HighlighterVolume}" />
             <TextBlock Style="{StaticResource SliderValue}" Text="{Binding HighlighterVolume, StringFormat={}{0} %}" />
           </StackPanel>
 
-          <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource Hint}"
+          <TextBlock Grid.Row="11" Grid.Column="1" Style="{StaticResource Hint}"
                      Text="{x:Static properties:Resources.Settings_HighlighterSoundHint}" />
         </Grid>
       </StackPanel>

@@ -83,7 +83,7 @@
     <value>Designfarbe</value>
   </data>
   <data name="Settings_ColorHint" xml:space="preserve">
-    <value>Farbname oder #RRGGBB</value>
+    <value>Hex-Farbe, z. B. #4682B4</value>
   </data>
   <data name="Settings_FramesPerSecond" xml:space="preserve">
     <value>Bilder pro Sekunde</value>
@@ -164,7 +164,7 @@
     <value>Durchmesser</value>
   </data>
   <data name="Settings_HighlighterThickness" xml:space="preserve">
-    <value>Strichstärke</value>
+    <value>Strichstärke innen</value>
   </data>
   <data name="Settings_HighlighterLeftClick" xml:space="preserve">
     <value>Linksklick</value>
@@ -201,5 +201,11 @@
   </data>
   <data name="Sound_FileFilter" xml:space="preserve">
     <value>Wave-Dateien (*.wav)|*.wav</value>
+  </data>
+  <data name="Settings_HighlighterOuterThickness" xml:space="preserve">
+    <value>Strichstärke außen</value>
+  </data>
+  <data name="Settings_ChooseColor" xml:space="preserve">
+    <value>Farbe auswählen...</value>
   </data>
 </root>

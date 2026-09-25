@@ -354,14 +354,11 @@ public partial class MainWindow
 
             settings.FramesPerSecond = SupportedFramesPerSecond.Contains(settings.FramesPerSecond) ? settings.FramesPerSecond : 15;
 
-            try
-            {
-                ColorConverter.ConvertFromString(settings.ThemeColor);
-            }
-            catch
-            {
-                settings.ThemeColor = nameof(Colors.SteelBlue);
-            }
+            // Colors are shown in hex format, also convert color names from older versions.
+            settings.ThemeColor = NormalizeColor(settings.ThemeColor, Colors.SteelBlue);
+            settings.HighlighterColor = NormalizeColor(settings.HighlighterColor, Colors.Yellow);
+            settings.HighlighterLeftClickColor = NormalizeColor(settings.HighlighterLeftClickColor, Colors.Red);
+            settings.HighlighterRightClickColor = NormalizeColor(settings.HighlighterRightClickColor, Colors.Blue);
 
             return true;
         }
@@ -377,6 +374,11 @@ public partial class MainWindow
         }
 
         return false;
+    }
+
+    private static string NormalizeColor(string? value, Color fallback)
+    {
+        return ColorBrushConverter.ToHex(ColorBrushConverter.TryParseColor(value, out var color) ? color : fallback);
     }
 
     private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)

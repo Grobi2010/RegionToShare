@@ -83,7 +83,7 @@
     <value>Theme color</value>
   </data>
   <data name="Settings_ColorHint" xml:space="preserve">
-    <value>Color name or #RRGGBB</value>
+    <value>Hex color, e.g. #4682B4</value>
   </data>
   <data name="Settings_FramesPerSecond" xml:space="preserve">
     <value>Frames per second</value>
@@ -164,7 +164,7 @@
     <value>Diameter</value>
   </data>
   <data name="Settings_HighlighterThickness" xml:space="preserve">
-    <value>Line width</value>
+    <value>Inner line width</value>
   </data>
   <data name="Settings_HighlighterLeftClick" xml:space="preserve">
     <value>Left click</value>
@@ -201,5 +201,11 @@
   </data>
   <data name="Sound_FileFilter" xml:space="preserve">
     <value>Wave files (*.wav)|*.wav</value>
+  </data>
+  <data name="Settings_HighlighterOuterThickness" xml:space="preserve">
+    <value>Outer line width</value>
+  </data>
+  <data name="Settings_ChooseColor" xml:space="preserve">
+    <value>Choose color...</value>
   </data>
 </root>
