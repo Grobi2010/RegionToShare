@@ -28,13 +28,22 @@ public sealed class AspectRatio
 
         var parts = text?.Split(':');
 
-        if (parts is not { Length: 2 }
-            || !double.TryParse(parts[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out var width)
-            || !double.TryParse(parts[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out var height)
+        if (parts is not { Length: 2 })
+            return false;
+
+        var part1 = parts[0].Trim();
+        var part2 = parts[1].Trim();
+        
+        if (!double.TryParse(part1, NumberStyles.Float, CultureInfo.InvariantCulture, out var width)
+            || !double.TryParse(part2, NumberStyles.Float, CultureInfo.InvariantCulture, out var height)
             || width <= 0 || height <= 0)
             return false;
 
-        ratio = new AspectRatio(parts[0].Trim() + ":" + parts[1].Trim(), width / height);
+        var value = width / height;
+        if (double.IsInfinity(value) || double.IsNaN(value))
+            return false;
+
+        ratio = new AspectRatio(part1 + ":" + part2, value);
         return true;
     }
 
