@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+﻿using RegionToShare.Properties;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Threading;
-using RegionToShare.Properties;
 using static RegionToShare.NativeMethods;
 
 namespace RegionToShare;
@@ -146,7 +146,7 @@ internal sealed class MouseHighlighter : IDisposable
 
         GetCursorPos(out var position);
 
-        // One extra pixel on each side for anti aliasing.
+        // One extra pixel on each side for antialiasing.
         _overlay.Render(position, Diameter + 2, DrawRing);
     }
 
@@ -165,7 +165,7 @@ internal sealed class MouseHighlighter : IDisposable
         {
             state.PressedAt = Stopwatch.GetTimestamp();
 
-            ClickSounds.Play(button == ClickButton.Left ? _settings.HighlighterLeftClickSound : _settings.HighlighterRightClickSound, _settings.HighlighterVolume);
+            PlayClickSound(button == ClickButton.Left ? _settings.HighlighterLeftClickSound : _settings.HighlighterRightClickSound);
 
             _clickTimer.Stop();
             _clickTimer.Interval = TimeSpan.FromMilliseconds(Math.Max(1, _settings.HighlighterClickDuration));
@@ -173,6 +173,11 @@ internal sealed class MouseHighlighter : IDisposable
         }
 
         RenderOverlay();
+    }
+
+    private void PlayClickSound(string? sound)
+    {
+        _ = Task.Run(() => ClickSounds.Play(sound, _settings.HighlighterVolume));
     }
 
     private void ClickTimer_Tick(object? sender, EventArgs e)

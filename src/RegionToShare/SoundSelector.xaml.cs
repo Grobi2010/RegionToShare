@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using Microsoft.Win32;
+using RegionToShare.Properties;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using RegionToShare.Properties;
 
 namespace RegionToShare;
 
@@ -41,8 +41,7 @@ public partial class SoundSelector
         set => SetValue(SoundProperty, value);
     }
     public static readonly DependencyProperty SoundProperty = DependencyProperty.Register(nameof(Sound), typeof(string), typeof(SoundSelector),
-        new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-            (d, _) => ((SoundSelector)d).UpdateSelection()));
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, (d, _) => ((SoundSelector)d).UpdateSelection()));
 
     private void UpdateSelection()
     {
