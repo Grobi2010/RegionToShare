@@ -99,7 +99,7 @@
                   IsChecked="{Binding HighlighterEnabled}" />
         <StackPanel IsEnabled="{Binding HighlighterEnabled}" Margin="0,3,0,0" Grid.IsSharedSizeScope="True">
           <StackPanel.Resources>
-            <Style TargetType="Slider">
+            <Style TargetType="Slider" BasedOn="{StaticResource {x:Static styles:ResourceKeys.SliderStyle}}">
               <Setter Property="Width" Value="180" />
               <Setter Property="VerticalAlignment" Value="Center" />
               <Setter Property="IsSnapToTickEnabled" Value="True" />
