@@ -92,7 +92,7 @@
     <value>Schattencursor zeichnen</value>
   </data>
   <data name="Settings_ShowWindowButtons" xml:space="preserve">
-    <value>Fensterschaltflächen im aktiven Modus  anzeigen</value>
+    <value>Fensterschaltflächen anzeigen</value>
   </data>
   <data name="Settings_StartActivated" xml:space="preserve">
     <value>Aktiviert starten</value>

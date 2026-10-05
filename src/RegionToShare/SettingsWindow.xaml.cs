@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+﻿using RegionToShare.Properties;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using RegionToShare.Properties;
 using TomsToolbox.Wpf.Styles;
 
 namespace RegionToShare;
@@ -21,6 +21,8 @@ public partial class SettingsWindow
         InitializeComponent();
 
         Resources.RegisterDefaultStyles();
+
+        MaxHeight = SystemParameters.WorkArea.Height;
 
         SetBinding(IsFitWindowHotkeyInUseProperty, new Binding(nameof(MainWindow.IsFitWindowHotkeyInUse)) { Source = mainWindow });
 
@@ -98,6 +100,31 @@ public partial class SettingsWindow
     private void HotkeyBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
         _mainWindow.AreHotkeysSuspended = false;
+    }
+
+    private void TabControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        var tabControl = (TabControl)sender;
+        tabControl.Loaded -= TabControl_Loaded;
+
+        // SizeToContent only measures the currently selected tab, so switching tabs would
+        // otherwise resize the window. Measure every tab once, fix the window to the
+        // tallest one, then disable SizeToContent so the height stays stable.
+        var selectedIndex = tabControl.SelectedIndex;
+        var maxHeight = 0d;
+
+        for (var i = 0; i < tabControl.Items.Count; i++)
+        {
+            tabControl.SelectedIndex = i;
+            UpdateLayout();
+
+            maxHeight = Math.Max(maxHeight, ActualHeight);
+        }
+
+        tabControl.SelectedIndex = selectedIndex;
+
+        SizeToContent = SizeToContent.Manual;
+        Height = Math.Min(maxHeight, MaxHeight);
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)

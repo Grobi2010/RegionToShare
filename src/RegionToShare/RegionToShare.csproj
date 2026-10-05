@@ -22,7 +22,7 @@
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.9.3" PrivateAssets="all" />
     <PackageReference Include="Throttle.Fody" Version="1.7.0" PrivateAssets="all" />
-    <PackageReference Include="TomsToolbox.Wpf.Styles" Version="2.25.0" />
+    <PackageReference Include="TomsToolbox.Wpf.Styles" Version="2.26.1" />
   </ItemGroup>
 
   <ItemGroup>

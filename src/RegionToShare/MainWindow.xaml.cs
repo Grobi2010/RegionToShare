@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using RegionToShare.Properties;
+using System.ComponentModel;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
@@ -9,13 +10,12 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
-using RegionToShare.Properties;
 using Throttle;
 using TomsToolbox.Essentials;
 using TomsToolbox.Wpf;
 using TomsToolbox.Wpf.Styles;
-using static RegionToShare.NativeMethods;
 using static RegionToShare.ExtensionMethods;
+using static RegionToShare.NativeMethods;
 
 namespace RegionToShare;
 
@@ -62,6 +62,7 @@ public partial class MainWindow
         get => (string?)GetValue(ExtendProperty);
         set => SetValue(ExtendProperty, value);
     }
+
     public static readonly DependencyProperty ExtendProperty = DependencyProperty.Register(nameof(Extend), typeof(string), typeof(MainWindow),
         new FrameworkPropertyMetadata(default(string), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
             (d, args) => ((MainWindow)d).OnExtendChanged(args.NewValue as string)));
@@ -71,6 +72,7 @@ public partial class MainWindow
         get => (Brush)GetValue(BackgroundPatternProperty);
         set => SetValue(BackgroundPatternProperty, value);
     }
+
     public static readonly DependencyProperty BackgroundPatternProperty = DependencyProperty.Register(
         nameof(BackgroundPattern), typeof(Brush), typeof(MainWindow), new PropertyMetadata(default(Brush)));
 
@@ -79,6 +81,7 @@ public partial class MainWindow
         get => (AspectRatio)GetValue(AspectRatioProperty);
         set => SetValue(AspectRatioProperty, value);
     }
+
     public static readonly DependencyProperty AspectRatioProperty = DependencyProperty.Register(nameof(AspectRatio), typeof(AspectRatio), typeof(MainWindow),
         new FrameworkPropertyMetadata(AspectRatio.Free, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
             (d, args) => ((MainWindow)d).OnAspectRatioChanged((AspectRatio?)args.NewValue ?? AspectRatio.Free)));
@@ -88,6 +91,7 @@ public partial class MainWindow
         get => (bool)GetValue(IsFitWindowHotkeyInUseProperty);
         set => SetValue(IsFitWindowHotkeyInUseProperty, value);
     }
+
     public static readonly DependencyProperty IsFitWindowHotkeyInUseProperty = DependencyProperty.Register(
         nameof(IsFitWindowHotkeyInUse), typeof(bool), typeof(MainWindow), new PropertyMetadata(default(bool)));
 
@@ -116,8 +120,7 @@ public partial class MainWindow
 
         var hotkey = Hotkey.Parse(Settings.FitWindowHotkey);
 
-        IsFitWindowHotkeyInUse = !hotkey.IsNone
-                                 && !RegisterHotKey(_windowHandle, FitWindowHotkeyId, hotkey.NativeModifiers | MOD_NOREPEAT, hotkey.NativeKey);
+        IsFitWindowHotkeyInUse = !hotkey.IsNone && !RegisterHotKey(_windowHandle, FitWindowHotkeyId, hotkey.NativeModifiers | MOD_NOREPEAT, hotkey.NativeKey);
     }
 
     private void OnExtendChanged(string? newValue)
@@ -291,6 +294,7 @@ public partial class MainWindow
             {
                 SendToBack();
             }
+
             timer.Stop();
         }
 
@@ -307,7 +311,9 @@ public partial class MainWindow
 
     private void OnMouseLeftButtonDown()
     {
-        _debugOffset = Keyboard.Modifiers == (ModifierKeys.Alt | ModifierKeys.Control | ModifierKeys.Shift) ? new POINT(600, 300) : new POINT();
+        _debugOffset = Keyboard.Modifiers == (ModifierKeys.Alt | ModifierKeys.Control | ModifierKeys.Shift)
+            ? new POINT(600, 300)
+            : new POINT();
 
         if (_recordingWindow != null)
             return;
@@ -353,7 +359,9 @@ public partial class MainWindow
         {
             var settings = Settings.Default;
 
-            settings.FramesPerSecond = SupportedFramesPerSecond.Contains(settings.FramesPerSecond) ? settings.FramesPerSecond : 15;
+            settings.FramesPerSecond = SupportedFramesPerSecond.Contains(settings.FramesPerSecond)
+                ? settings.FramesPerSecond
+                : 15;
 
             // Colors are shown in hex format, also convert color names from older versions.
             settings.ThemeColor = NormalizeColor(settings.ThemeColor, Colors.SteelBlue);
@@ -365,7 +373,10 @@ public partial class MainWindow
         }
         catch (ConfigurationException ex)
         {
-            var inner = ex.ExceptionChain().OfType<ConfigurationException>().FirstOrDefault(item => !item.Filename.IsNullOrEmpty());
+            var inner = ex.ExceptionChain()
+                .OfType<ConfigurationException>()
+                .FirstOrDefault(item => !item.Filename.IsNullOrEmpty());
+
             if (inner == null)
                 throw;
 
@@ -487,6 +498,7 @@ public partial class MainWindow
                     handled = true;
                     return (IntPtr)1;
                 }
+
                 break;
 
             case WM_HOTKEY when wParam.ToInt32() == FitWindowHotkeyId:
