@@ -7,7 +7,7 @@ using System.Windows.Controls;
 namespace RegionToShare;
 
 /// <summary>
-/// Selects a built in click sound, a wave file or no sound.
+/// Selects a builtin click sound, a wave file or no sound.
 /// </summary>
 public partial class SoundSelector
 {
@@ -55,6 +55,7 @@ public partial class SoundSelector
             SoundComboBox.SelectedItem = Options.First(item => item.Key == (isFile ? FileKey : sound));
             FileNameText.Text = isFile ? Path.GetFileName(sound) : string.Empty;
             FileNameText.ToolTip = isFile ? sound : null;
+            BrowseButton.Visibility = isFile ? Visibility.Visible : Visibility.Collapsed;
         }
         finally
         {
@@ -73,6 +74,16 @@ public partial class SoundSelector
             return;
         }
 
+        BrowseForFile();
+    }
+
+    private void BrowseButton_Click(object sender, RoutedEventArgs e)
+    {
+        BrowseForFile();
+    }
+
+    private void BrowseForFile()
+    {
         var dialog = new OpenFileDialog { Filter = Properties.Resources.Sound_FileFilter };
 
         if (dialog.ShowDialog(Window.GetWindow(this)) == true)

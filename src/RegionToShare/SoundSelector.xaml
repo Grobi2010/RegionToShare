@@ -12,6 +12,10 @@
             Click="PlayButton_Click">
       <TextBlock Text="&#xE768;" FontFamily="Segoe MDL2 Assets" />
     </Button>
+    <Button x:Name="BrowseButton" Margin="5,0,0,0" Padding="4,0" VerticalAlignment="Center"
+            Content="…" Visibility="Collapsed"
+            ToolTip="{x:Static properties:Resources.Sound_File}"
+            Click="BrowseButton_Click" />
     <TextBlock x:Name="FileNameText"
                Margin="5,0,0,0" MaxWidth="110" VerticalAlignment="Center"
                TextTrimming="CharacterEllipsis" />

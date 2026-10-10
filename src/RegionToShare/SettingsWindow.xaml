@@ -6,7 +6,7 @@
         xmlns:toms="urn:TomsToolbox"
         xmlns:styles="urn:TomsToolbox.Wpf.Styles"
         Title="{x:Static properties:Resources.Settings_Title}"
-        Width="520" SizeToContent="Height"
+        Width="600" SizeToContent="Height"
         ResizeMode="NoResize" Topmost="True"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
