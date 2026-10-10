@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Concurrent;
+using System.IO;
 using System.Media;
 using static RegionToShare.NativeMethods;
 
@@ -16,7 +17,7 @@ internal static class ClickSounds
 
     private const int SampleRate = 44100;
 
-    private static readonly Dictionary<string, SoundPlayer?> Players = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly ConcurrentDictionary<string, SoundPlayer?> Players = new(StringComparer.OrdinalIgnoreCase);
 
     public static bool IsBuiltIn(string? sound) => sound is High or Low or Pop;
 
@@ -45,12 +46,21 @@ internal static class ClickSounds
 
     private static SoundPlayer? GetPlayer(string sound)
     {
-        if (Players.TryGetValue(sound, out var player))
-            return player;
-
         try
         {
-            player = sound switch
+            return Players.GetOrAdd(sound, CreatePlayer);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private static SoundPlayer? CreatePlayer(string sound)
+    {
+        try
+        {
+            var player = sound switch
             {
                 High => new SoundPlayer(Synthesize(2400, 2400, 0.025, 0.005)),
                 Low => new SoundPlayer(Synthesize(900, 900, 0.040, 0.010)),
@@ -59,19 +69,17 @@ internal static class ClickSounds
             };
 
             player?.Load();
+
+            return player;
         }
         catch
         {
-            player = null;
-        }
+            // Do not cache missing files, they might show up later.
+            if (!IsBuiltIn(sound))
+                throw;
 
-        // Do not cache missing files, they might show up later.
-        if (player != null || IsBuiltIn(sound))
-        {
-            Players[sound] = player;
+            return null;
         }
-
-        return player;
     }
 
     /// <summary>
